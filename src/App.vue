@@ -3,6 +3,7 @@
     <h1>Frånvaroanmälningar</h1>
     <Wrapper>
       <Card />
+      <AddAbs />
     </Wrapper>
     <!-- <HelloWorld msg="Hello Vue in CodeSandbox!" /> -->
   </div>
@@ -10,6 +11,7 @@
 
 <script>
 //import HelloWorld from "./components/HelloWorld";
+import AddAbs from "./components/AddAbs.vue";
 import Card from "./components/Card.vue";
 import Wrapper from "./components/Wrapper.vue";
 import { absences } from "./data.js";
@@ -20,6 +22,7 @@ export default {
     /*  HelloWorld, */
     Wrapper,
     Card,
+    AddAbs,
   },
   data() {
     return {
