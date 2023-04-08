@@ -1,27 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" width="25%" />
-    <HelloWorld msg="Hello Vue in CodeSandbox!" />
+    <h1>Frånvaroanmälningar</h1>
+    <Wrapper>
+      <Card />
+    </Wrapper>
+    <!-- <HelloWorld msg="Hello Vue in CodeSandbox!" /> -->
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+//import HelloWorld from "./components/HelloWorld";
+import Card from "./components/Card.vue";
+import Wrapper from "./components/Wrapper.vue";
 import { absences } from "./data.js";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    /*  HelloWorld, */
+    Wrapper,
+    Card,
   },
   data() {
     return {
       absences,
     };
   },
-  methods() {
-    console.log("hi new");
-  },
+
   mounted() {
     console.log("hi new");
   },
@@ -36,5 +41,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+h1 {
+  font-size: 24px;
 }
 </style>
