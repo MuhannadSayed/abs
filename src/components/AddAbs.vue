@@ -1,20 +1,23 @@
 <template>
-  <button @click="addAbs">
-    <img src="../assets/plus.svg" />
+  <button @click="addAbs" :disabled="isDisabled">
+    <img src="../assets/plus.svg" :style="{ opacity: imageOpacity }" />
   </button>
 </template>
 
 <script>
 export default {
   name: "AddAbs",
-  /* data() {
-    return {
-      count: 0,
-    };
-  }, */
   methods: {
     addAbs(event) {
       this.$emit("click", event);
+    },
+  },
+  props: {
+    isDisabled: Boolean,
+  },
+  computed: {
+    imageOpacity() {
+      return this.isDisabled ? 0.5 : 1;
     },
   },
 };

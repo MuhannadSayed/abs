@@ -9,7 +9,7 @@
         :formatedDate="`${absence.absFormated}`"
         :reason="`${absence.reason}`"
       />
-      <AddAbs @click="addNewAbs()" />
+      <AddAbs @click="addNewAbs()" :isDisabled="isBtnDisabled" />
     </Wrapper>
     <!-- <HelloWorld msg="Hello Vue in CodeSandbox!" /> -->
   </div>
@@ -36,17 +36,22 @@ export default {
       absences,
       absList: [],
       refactoredData: [],
+      isBtnDisabled: false,
     };
   },
 
   methods: {
     addNewAbs() {
-      console.log("someone click me", absences);
+      if (this.refactoredData.length > 0) {
+        const index = Math.floor(Math.random() * this.refactoredData.length);
+        this.absList.push(this.refactoredData[index]);
+        this.refactoredData.splice(index, 1)[0];
+      } else this.isBtnDisabled = true;
     },
   },
 
   mounted() {
-    this.absList = refactorAbs(absences);
+    this.refactoredData = refactorAbs(absences);
   },
 };
 </script>
