@@ -9,7 +9,7 @@
         :formatedDate="`${absence.absFormated}`"
         :reason="`${absence.reason}`"
       />
-      <AddAbs @click="addNewAbs()" :isDisabled="isBtnDisabled" />
+      <AddAbs @click="addNewAbs()" :isDisabled="disaleAddBtn" />
     </Wrapper>
     <!-- <HelloWorld msg="Hello Vue in CodeSandbox!" /> -->
   </div>
@@ -36,17 +36,19 @@ export default {
       absences,
       absList: [],
       refactoredData: [],
-      isBtnDisabled: false,
     };
   },
 
   methods: {
     addNewAbs() {
-      if (this.refactoredData.length > 0) {
-        const index = Math.floor(Math.random() * this.refactoredData.length);
-        this.absList.push(this.refactoredData[index]);
-        this.refactoredData.splice(index, 1)[0];
-      } else this.isBtnDisabled = true;
+      const index = Math.floor(Math.random() * this.refactoredData.length);
+      this.absList.push(this.refactoredData[index]);
+      this.refactoredData.splice(index, 1)[0];
+    },
+  },
+  computed: {
+    disaleAddBtn() {
+      return this.refactoredData.length == 0 ? true : false;
     },
   },
 
