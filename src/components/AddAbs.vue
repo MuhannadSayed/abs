@@ -7,15 +7,14 @@
 <script>
 export default {
   name: "AddAbs",
-  data() {
+  /* data() {
     return {
       count: 0,
     };
-  },
+  }, */
   methods: {
-    addAbs() {
-      this.count++;
-      console.log(this.count);
+    addAbs(event) {
+      this.$emit("click", event);
     },
   },
 };

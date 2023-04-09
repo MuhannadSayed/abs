@@ -2,8 +2,14 @@
   <div id="app">
     <h1>Frånvaroanmälningar</h1>
     <Wrapper>
-      <Card />
-      <AddAbs />
+      <Card
+        v-for="(absence, index) in absList"
+        :key="index"
+        :name="`${absence.absName}`"
+        :formatedDate="`${absence.absFormated}`"
+        :reason="`${absence.reason}`"
+      />
+      <AddAbs @click="addNewAbs()" />
     </Wrapper>
     <!-- <HelloWorld msg="Hello Vue in CodeSandbox!" /> -->
   </div>
@@ -15,6 +21,7 @@ import AddAbs from "./components/AddAbs.vue";
 import Card from "./components/Card.vue";
 import Wrapper from "./components/Wrapper.vue";
 import { absences } from "./data.js";
+import { refactorAbs } from "./models/DataModel";
 
 export default {
   name: "App",
@@ -27,11 +34,19 @@ export default {
   data() {
     return {
       absences,
+      absList: [],
+      refactoredData: [],
     };
   },
 
+  methods: {
+    addNewAbs() {
+      console.log("someone click me", absences);
+    },
+  },
+
   mounted() {
-    console.log("hi new");
+    this.absList = refactorAbs(absences);
   },
 };
 </script>
