@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     disaleAddBtn() {
-      return this.refactoredData.length == 0 ? true : false;
+      return this.refactoredData.length == 0;
     },
   },
 
