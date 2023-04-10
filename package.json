@@ -14,6 +14,7 @@
     "jest": "^27.5.1",
     "jsdom": "^21.1.1",
     "moment": "^2.29.4",
+    "uuid": "^9.0.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {

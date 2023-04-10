@@ -5,3 +5,11 @@ export const ABS_REASON = (guid) => {
 
   return "";
 };
+
+export const ABSENCE_TYPE = {
+  PART_TIME: "partTime",
+  SEVERAL_FULL_DAYS: "severalFullDays",
+  ONE_DAY: "oneDay",
+  UNTIL_FURTHER: "untilFurther",
+  PART_TIMES_IN_SEVERAL_DAYS: "partTimesInSeveralDays",
+};

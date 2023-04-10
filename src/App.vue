@@ -6,27 +6,27 @@
         v-for="(absence, index) in absList"
         :key="index"
         :name="`${absence.absName}`"
-        :formatedDate="`${absence.absFormated}`"
+        :formatedDate="`${
+          isBigScreen ? absence.fullFormated : absence.shortFormated
+        }`"
         :reason="`${absence.reason}`"
       />
-      <AddAbs @click="addNewAbs()" :isDisabled="disaleAddBtn" />
+      <AddAbs @click="addNewAbs()" :isDisabled="disableAddBtn" />
     </Wrapper>
-    <!-- <HelloWorld msg="Hello Vue in CodeSandbox!" /> -->
   </div>
 </template>
 
 <script>
-//import HelloWorld from "./components/HelloWorld";
 import AddAbs from "./components/AddAbs.vue";
 import Card from "./components/Card.vue";
 import Wrapper from "./components/Wrapper.vue";
 import { absences } from "./data.js";
-import { refactorAbs } from "./models/DataModel";
+import { refactorAnAbs, detectScreenWidth } from "./models/DataModel";
+import { EventBus } from "./utils/event-bus";
 
 export default {
   name: "App",
   components: {
-    /*  HelloWorld, */
     Wrapper,
     Card,
     AddAbs,
@@ -36,6 +36,7 @@ export default {
       absences,
       absList: [],
       refactoredData: [],
+      isBigScreen: false,
     };
   },
 
@@ -47,13 +48,17 @@ export default {
     },
   },
   computed: {
-    disaleAddBtn() {
+    disableAddBtn() {
       return this.refactoredData.length == 0;
     },
   },
 
   mounted() {
-    this.refactoredData = refactorAbs(absences);
+    absences.forEach((e) => this.refactoredData.push(refactorAnAbs(e)));
+    detectScreenWidth();
+    EventBus.$on("screen-width-change", (bigScreen) => {
+      this.isBigScreen = bigScreen;
+    });
   },
 };
 </script>

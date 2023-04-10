@@ -73,7 +73,7 @@ describe("refactorAbs", () => {
 
     expect(result).toHaveLength(1);
     expect(result[0].absName).toBe("Emma Testson");
-    expect(result[0].absFormated).toBe("Mån 1 mars - Tisdag 2 mars");
+    expect(result[0].absFormated).toBe("Måndag 1 mars - Tisdag 2 mars");
     expect(result[0].reason).toBe("");
   });
 });

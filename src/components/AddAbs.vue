@@ -1,7 +1,9 @@
 <template>
-  <button @click="addAbs" :disabled="isDisabled">
-    <img src="../assets/plus.svg" :style="{ opacity: imageOpacity }" />
-  </button>
+  <div class="card">
+    <button @click="addAbs" :disabled="isDisabled">
+      <img src="../assets/plus.svg" :style="{ opacity: imageOpacity }" />
+    </button>
+  </div>
 </template>
 
 <script>
@@ -47,5 +49,14 @@ img {
   height: 64px;
   background: transparent;
   border: 0;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+  text-align: left;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
 }
 </style>
