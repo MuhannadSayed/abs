@@ -4,6 +4,19 @@ import "moment/locale/sv";
 import { ABSENCE_TYPE } from "../constants/index";
 
 export const controlAnAbsence = (absence) => {
+  const requiredFields = [
+    "firstName",
+    "lastName",
+    "dateTimeFrom",
+    "dateTimeTo",
+    "reasonGuid",
+  ];
+  for (const field of requiredFields) {
+    if (!(field in absence)) {
+      throw new Error(`Invalid absence data: ${field} is missing`);
+    }
+  }
+
   const fromDate = moment(absence.dateTimeFrom);
   const toDate = moment(absence.dateTimeTo);
   const isFromDateStartOfDay = fromDate.isSame(fromDate.clone().startOf("day"));

@@ -1,79 +1,27 @@
-import { refactorAbs } from "../../src/models/DataModel";
+import { refactorAnAbs } from "../../src/models/DataModel";
+import { MOCK_DATA_FOR_TEST } from "../../src/constants/index";
 
-describe("refactorAbs", () => {
+describe("refactorAnAbs", () => {
   test("should format a single-day absence with full day", () => {
-    const fetchedAbsences = [
-      {
-        firstName: "Kalle",
-        lastName: "Testson",
-        dateTimeFrom: "2021-01-01 00:00:00",
-        dateTimeTo: "2021-01-01 23:59:59",
-        reasonGuid: "4d937b93-707a-4812-a2c5-227d23a5b3ac",
-      },
-    ];
+    const result = refactorAnAbs(MOCK_DATA_FOR_TEST.ONE_DAY_CASE);
 
-    const result = refactorAbs(fetchedAbsences);
-
-    expect(result).toHaveLength(1);
-    expect(result[0].absName).toBe("Kalle Testson");
-    expect(result[0].absFormated).toBe("Fredag 1 januari");
-    expect(result[0].reason).toBe("Sjuk");
+    expect(result.absName).toBe("Emma Testson");
+    expect(result.fullFormated).toBe("Måndag 1 februari");
+    expect(result.shortFormated).toBe("Måndag 1 februari");
+    expect(result.reason).toBe("Sjuk");
+    expect(result.absType).toBe("oneDay");
   });
+  test("should format a multiple-days absence without full times", () => {
+    const result = refactorAnAbs(
+      MOCK_DATA_FOR_TEST.PART_TIMES_IN_SEVERAL_DAYS_CASE
+    );
 
-  test("should format a multi-day absence without full days", () => {
-    const fetchedAbsences = [
-      {
-        firstName: "Lisa",
-        lastName: "Testson",
-        dateTimeFrom: "2022-02-01T12:00:00Z",
-        dateTimeTo: "2022-02-03T15:30:00Z",
-        reasonGuid: "1c4464f2-34e0-427b-bb29-399665819dad",
-      },
-    ];
-
-    const result = refactorAbs(fetchedAbsences);
-
-    expect(result).toHaveLength(1);
-    expect(result[0].absName).toBe("Lisa Testson");
-    expect(result[0].absFormated).toBe("Tis 1 feb 13:00 - Tor 3 feb 16:30");
-    expect(result[0].reason).toBe("Elevråd");
-  });
-
-  test("should format an until-further-notice absence", () => {
-    const fetchedAbsences = [
-      {
-        firstName: "Johan",
-        lastName: "Testson",
-        dateTimeFrom: "2021-09-15 00:00:00",
-        dateTimeTo: null,
-        reasonGuid: "4e57e8ab-c67a-4f6f-90f6-f72bfec8b808",
-      },
-    ];
-
-    const result = refactorAbs(fetchedAbsences);
-
-    expect(result).toHaveLength(1);
-    expect(result[0].absName).toBe("Johan Testson");
-    expect(result[0].absFormated).toBe("Onsdag 15 september - Tillsvidare");
-    expect(result[0].reason).toBe("Tandläkare");
-  });
-
-  test("should format an absence that spans multiple full days", () => {
-    const fetchedAbsences = [
-      {
-        firstName: "Emma",
-        lastName: "Testson",
-        dateTimeFrom: "2021-03-01 00:00:00",
-        dateTimeTo: "2021-03-02 23:59:59",
-        reasonGuid: "blabla",
-      },
-    ];
-
-    const result = refactorAbs(fetchedAbsences);
-
-    expect(result).toHaveLength(1);
-    expect(result[0].absName).toBe("Emma Testson");
-    expect(result[0].absFormated).toBe("Måndag 1 mars - Tisdag 2 mars");
-    expect(result[0].reason).toBe("");
+    expect(result.absName).toBe("Maria Testson");
+    expect(result.fullFormated).toBe(
+      "Måndag 1 november 09:00 - Onsdag 10 november 14:55"
+    );
+    expect(result.shortFormated).toBe("Mån 1 nov 09:00 - Ons 10 nov 14:55");
+    expect(result.reason).toBe("");
+    expect(result.absType).toBe("partTimesInSeveralDays");
   });
 });
